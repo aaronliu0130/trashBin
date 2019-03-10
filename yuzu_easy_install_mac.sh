@@ -26,7 +26,7 @@ while [[$menu!="n"]]&&[[$menu!="y"]]&&[[$menu!="quit"]]
 done
 clear
 
-if [[$menu==“y”]];then
+if [[$menu=="y"]];then
 	clear
 	menu=""
 	while [[$menu!="c"]]&&[[$menu!="n"]] do
@@ -36,9 +36,20 @@ if [[$menu==“y”]];then
 	echo
 	echo "This will download Yuzu. Allow it to download."
 	echo
-	curl -o tar-archive-name.tar.gz -L 
-	echo We will now install yuzu, then delete the installer.
-	tar -zxvf tar-archive-name.tar.gz
+	if [[$menu=="c"]] then
+		curl -o canary.tar.gz -L https://www.mediafire.com/file/58s9ii2uaihecg4/canary.tar.gz/file
+	elif [[$menu=="n"]] then
+		curl -o nightly.tar.gz -L https://www.mediafire.com/file/1q74iwictd3zl56/nightly.tar.bz2/file
+	fi
+	echo "We will now install Yuzu, then delete the leftovers."
+	if [[$menu=="c"]] then
+		tar -zxvf canary.tar.gz
+		mv canary /Applications
+		rm canary.tar.gz
+	elif [[$menu=="n"]] then
+		tar -zxvf nightly.tar.gz
+		mv nightly /Applications
+		rm nightly.tar.gz
 	echo -n "Done."
 	pause()
 fi
