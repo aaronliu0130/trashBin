@@ -1,20 +1,19 @@
 #!/usr/bin/bash
 pause(){
-	read enterer
 	mytitle="Press Enter to Continue…"
 	echo -e '\033k'$mytitle'\033\\'
+	read enterer
+	clear
 }
 mytitle="Yuzu Keys Installer"
 echo -e '\033k'$mytitle'\033\\'
 clear
 menu=""
-while [[$menu!="n"]]&&[[$menu!="y"]] do
-	echo -n "Do you want to update this script? (y/n): "
-	read -n 1 menu
-done
-if [[$menu=="y"]]; then
+echo -n "Checking for updates..."
+up=$(curl https://raw.githubusercontent.com/aaronliu0130/trashBin/master/version)
+if [[$up!="v0.5-alpha"]]; then
  	clear
-	echo "Updating. Will restart after update."
+	echo "An update was found. Now updating. Will restart after update."
 	curl -o update.sh https://raw.githubusercontent.com/aaronliu0130/trashBin/master/update.sh
 	bash update.sh
 	exit
