@@ -11,7 +11,7 @@ clear
 menu=""
 echo -n "Checking for updates..."
 up=$(curl https://raw.githubusercontent.com/aaronliu0130/trashBin/master/version)
-if [[$up!="v0.5-alpha"]]; then
+if [[$up!="v0.2.0-alpha"]]; then
  	clear
 	echo "An update was found. Now updating. Will restart after update."
 	curl -o update.sh https://raw.githubusercontent.com/aaronliu0130/trashBin/master/update.sh
