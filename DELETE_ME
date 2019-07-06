@@ -1,1 +1,0 @@
-I am developing with c++ with a mac. Frequently, my codes have memory leak issues, and I want a tool that can detect them. I want something like Valgrind, but I can't use Valgrind as I'm on Mojave(10.14.4, Darwin 18) and the user created patch doesn't compile. Any recommendations?
