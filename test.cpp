@@ -1,31 +1,34 @@
-    vector<vector<int>> permuteUnique(vector<int> nums) {
-		int s = nums.size();
-		if (s < 1)
-			return { {}};
-		vector<int> states(s, 0);
-		vector<bool> used(s + 1, 0);
-		vector<vector<int>> ans;
-		sort(nums.begin(), nums.end());
-		nums.insert(nums.begin(), INT_MIN);
-		for (int i = 0; i >= 0;) {
-			auto prev = states[i];
-			auto flag = 0;
-			for (used[prev] = 0; !flag && ++states[i] <= s;
-					flag = !used[states[i]] && nums[states[i]] != nums[prev])
-				;
-			if (flag) {
-				used[states[i]] = 1;
-				++i;
-				if (i >= s) {
-					vector<int> a(s);
-					for (int j = 0; j < s; ++j)
-						a[j] = nums[states[j]];
-					ans.push_back(a);
-					--i;
-				} else
-					states[i] = 0;
-			} else
-				--i;
-		}
-		return ans;
-	}
+class Solution {
+public:
+    /*
+     * @param start: a string
+     * @param end: a string
+     * @param dict: a set of string
+     * @return: An integer
+     */
+    int ladderLength(string &start, string &end, unordered_set<string> &dict) {
+        unordered_set<string>starts{start},ends{end};
+        auto grow=[&dict](unordered_set<string>& starts,unordered_set<string>& ends,int& times)->bool{
+            ++times;
+            unordered_set<string> ns;
+            for(auto s:starts)
+                for(auto&c:s){
+                    auto origi=c;
+                    for(c='a';c<='z';++c)
+                        if(c!=origi)
+                            if(ends.count(s))
+                                return false;
+                            else if(dict.count(s)){
+                                ns.insert(s);
+                                dict.erase(s);
+                            }
+                    c=origi;
+                }
+            starts=ns;
+            return true;
+        };
+        auto i=1;
+        while(grow(starts,ends,i)&&grow(ends,starts,i));
+        return i;
+    }
+};
