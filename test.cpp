@@ -1,5 +1,4 @@
-	vector<vector<int>> permuteUnique(vector<int> nums) {
-		// write your code here
+	vector<vector<int>> permute(vector<int> &nums) {
 		int s = nums.size();
 		if (s < 1)
 			return { {}};
